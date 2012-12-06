@@ -10,7 +10,7 @@ import java.util.Map;
 import static net.csdn.common.collections.WowCollections.map;
 
 /**
- * BlogInfo: WilliamZhu
+ * User: WilliamZhu
  * Date: 12-7-4
  * Time: 下午7:40
  */

@@ -100,6 +100,8 @@ public class DefaultScanService implements ScanService {
             };
 
             try {
+                File urlPath = new File(url.getPath());
+                if(!urlPath.exists()||urlPath.list().length==0)return streamList;
                 StreamIterator it = IteratorFactory.create(url, filter);
 
                 InputStream stream;

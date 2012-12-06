@@ -8,15 +8,26 @@ import java.lang.reflect.InvocationTargetException;
  * Time: 上午8:25
  */
 public class ExceptionHandler {
-    public static  void renderHandle(Exception e) throws Exception {
+    public static void renderHandle(Exception e) throws Exception {
+        Exception temp = new Exception();
         if (e instanceof InvocationTargetException) {
-            InvocationTargetException invocationTargetException = (InvocationTargetException) e;
-            if (invocationTargetException.getTargetException() instanceof RenderFinish) {
-                return;
+            temp = (InvocationTargetException) e;
+            for (int i = 0; i < 10; i++) {
+                InvocationTargetException wow = (InvocationTargetException) temp;
+                temp = (Exception) wow.getTargetException();
+                if (temp instanceof RenderFinish) {
+                    return;
+                }
+                if (!(temp instanceof InvocationTargetException)) {
+                    break;
+                }
             }
+        } else if (e instanceof RenderFinish) {
+            return;
         } else {
             throw e;
         }
-        if (!(e instanceof RenderFinish)) throw e;
+
+        throw temp;
     }
 }

@@ -108,8 +108,10 @@ public class Url {
         return this;
     }
 
-    public Url query(Map query) {
-        query.putAll(query);
+    public Url query(Map _query) {
+        for (Object key : _query.keySet()) {
+            addParam(key.toString(), _query.get(key).toString());
+        }
         return this;
     }
 

@@ -1,7 +1,9 @@
 package net.csdn.common.collections;
 
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
 import net.csdn.common.exception.ArgumentErrorException;
-import net.sf.json.JSONArray;
+import net.csdn.common.reflect.ReflectHelper;
 
 import java.sql.Timestamp;
 import java.util.*;
@@ -13,6 +15,9 @@ import java.util.*;
  */
 public class WowCollections {
 
+    public final static Map EMPTY_MAP = map();
+    public final static List EMPTY_LIST = list();
+
     public static <T> Set<T> newHashSet(T... arrays) {
         Set<T> sets = new HashSet<T>(arrays.length);
         for (T t : arrays) {
@@ -21,6 +26,30 @@ public class WowCollections {
         return sets;
     }
 
+
+    public static DBObject translateMapToDBObject(Map map) {
+        DBObject query = new BasicDBObject();
+        query.putAll(map);
+        return query;
+    }
+
+    public static boolean isEmpty(Collection collection) {
+        if (collection == null || collection.isEmpty()) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean isEmpty(String str) {
+        if (str == null || str.isEmpty()) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean isNull(Object obj) {
+        return obj == null;
+    }
 
     public static Map selectMap(Map map, String... keys) {
         Map temp = new HashMap();
@@ -122,6 +151,14 @@ public class WowCollections {
         return list1;
     }
 
+    public static List projectByMethod(List list, String method) {
+        List list1 = new ArrayList(list.size());
+        for (Object obj : list) {
+            list1.add(ReflectHelper.method(obj, method));
+        }
+        return list1;
+    }
+
     public static Map double_list_to_map(List keys, List values) {
         Map map = new HashMap();
         int keys_size = keys.size();
@@ -206,10 +243,6 @@ public class WowCollections {
         return sets;
     }
 
-    public static List jsonArrayToList(JSONArray jsonArray) {
-        return toList(jsonArray.toArray());
-
-    }
 
     public static String join(Object[] arrays, String split) {
         if (arrays == null || arrays.length == 0) return "";
@@ -230,4 +263,19 @@ public class WowCollections {
         stringBuffer.deleteCharAt(stringBuffer.length() - 1);
         return stringBuffer.toString();
     }
+
+
+    public static <K, V> List iterate_map(Map<K, V> map, MapIterator mapIterator) {
+        List list = list();
+        for (Map.Entry<K, V> entry : map.entrySet()) {
+            list.add(mapIterator.iterate(entry.getKey(), entry.getValue()));
+        }
+        return list;
+    }
+
+
+    public interface MapIterator<K, V> {
+        public Object iterate(K key, V value);
+    }
+
 }

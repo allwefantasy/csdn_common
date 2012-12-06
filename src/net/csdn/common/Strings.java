@@ -1526,11 +1526,12 @@ end
     }
 
 
-    public static  String  extractFieldFromGetSetMethod(String methodName) {
+    public static String extractFieldFromGetSetMethod(String methodName) {
         methodName = methodName.substring(3);
         methodName = methodName.substring(0, 1).toLowerCase() + methodName.substring(1);
         return methodName;
     }
+
     /**
      * Determine whether the given array is empty:
      * i.e. <code>null</code> or of zero length.
@@ -1552,6 +1553,51 @@ end
         return (collection == null || collection.isEmpty());
     }
 
+
+    public static Object numberToString(Object abc) {
+        if (abc instanceof Long) {
+            return Long.toString((Long) abc);
+        }
+
+        if (abc instanceof Double) {
+            return Double.toString((Double) abc);
+        }
+
+        if (abc instanceof Integer) {
+            return Integer.toString((Integer) abc);
+        }
+
+        if (abc instanceof Float) {
+            return Float.toString((Float) abc);
+        }
+
+        return abc;
+    }
+
+    public static Object stringToNumber(Object abc) {
+        if (abc instanceof String) {
+            String jack = (String) abc;
+            try {
+                return Integer.parseInt(jack);
+            } catch (Exception e) {
+                try {
+                    return Long.parseLong(jack);
+                } catch (Exception e1) {
+                    try {
+                        return Float.parseFloat(jack);
+                    } catch (Exception e2) {
+                        try {
+                            return Double.parseDouble(jack);
+                        } catch (Exception e3) {
+                            return abc;
+                        }
+                    }
+                }
+            }
+
+        }
+        return abc;
+    }
 
 
     private Strings() {
