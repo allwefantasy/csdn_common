@@ -29,7 +29,7 @@ public class Url {
         host = uri.getHost();
         parsePath(uri.getPath());
         parseQuery(uri.getQuery());
-        this.port = uri.getPort();
+        this.port = uri.getPort() == -1 ? 80 : uri.getPort();
 
     }
 
