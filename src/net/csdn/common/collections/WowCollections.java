@@ -128,8 +128,8 @@ public class WowCollections {
         while (ite.hasNext()) {
             stringBuffer.append(ite.next() + split);
         }
-        stringBuffer.deleteCharAt(stringBuffer.length() - 1);
-        return stringBuffer.toString();
+
+        return stringBuffer.substring(0,stringBuffer.length() - split.length());
     }
 
     public static String join(Collection collection) {
@@ -276,6 +276,10 @@ public class WowCollections {
 
     public interface MapIterator<K, V> {
         public Object iterate(K key, V value);
+    }
+
+    public static void main(String[] args){
+        System.out.println(join(list("java")," AND"));
     }
 
 }
