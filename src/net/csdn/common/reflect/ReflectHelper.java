@@ -30,6 +30,28 @@ public class ReflectHelper {
         return result;
     }
 
+    public static List<Method> methods(Class clzz, Class annotation) {
+
+        List<Method> result = list();
+        Method[] methods = clzz.getDeclaredMethods();
+        for (Method method : methods) {
+            if (method.isAnnotationPresent(annotation)) {
+                result.add(method);
+            }
+        }
+        return result;
+    }
+
+    public static List<Field> findFieldsByAnnotation(Class clzz, Class annotation) {
+
+        return fields(clzz, annotation);
+    }
+
+    public static List<Method> findMethodsByAnnotation(Class clzz, Class annotation) {
+
+        return methods(clzz, annotation);
+    }
+
     public static Field findField(Class clzz, String fieldName) {
         Field field = null;
         try {
@@ -69,6 +91,27 @@ public class ReflectHelper {
         Field field = findField(obj.getClass(), fieldName);
         field.setAccessible(true);
         return field.get(obj);
+    }
+
+    public static Object staticField(Class obj, String fieldName) {
+        Field field = findField(obj, fieldName);
+        field.setAccessible(true);
+        try {
+            return field.get(null);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static void staticField(Class obj, String fieldName, Object value) {
+        Field field = findField(obj, fieldName);
+        field.setAccessible(true);
+        try {
+            field.set(null, value);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 
 

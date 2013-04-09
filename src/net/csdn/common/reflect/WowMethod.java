@@ -18,6 +18,7 @@ public class WowMethod {
 
     public Object invoke(Object... params) {
         try {
+            method.setAccessible(true);
             return method.invoke(target, params);
         } catch (Exception e) {
             e.printStackTrace();
