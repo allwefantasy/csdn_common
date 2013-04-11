@@ -6,6 +6,7 @@ import org.apache.commons.beanutils.MethodUtils;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.List;
 
 import static net.csdn.common.collections.WowCollections.list;
@@ -169,10 +170,6 @@ public class ReflectHelper {
     }
 
     public static Object staticMethod(Class obj, String methodName, Object... params) {
-        return method(obj, methodName, params);
-    }
-
-    public static Object method(Class obj, String methodName, Object... params) {
         try {
 
             Method method = null;
@@ -185,7 +182,9 @@ public class ReflectHelper {
                     method = MethodUtils.getMatchingAccessibleMethod(obj, methodName, paramsToTypes(params));
                 }
             }
-            method.setAccessible(true);
+            if (!Modifier.isPublic(method.getModifiers())) {
+                method.setAccessible(true);
+            }
             return method.invoke(null, params);
         } catch (Exception e) {
             try {
@@ -196,6 +195,7 @@ public class ReflectHelper {
             return null;
         }
     }
+
 
     public static Object method(Object obj, String methodName, Object... params) {
         try {
