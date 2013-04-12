@@ -151,10 +151,11 @@ public class WowCollections {
         return list1;
     }
 
-    public static List projectByMethod(List list, String method) {
+
+    public static List projectByMethod(List list, String method,Object... params) {
         List list1 = new ArrayList(list.size());
         for (Object obj : list) {
-            list1.add(ReflectHelper.method(obj, method));
+            list1.add(ReflectHelper.method(obj, method,params));
         }
         return list1;
     }
