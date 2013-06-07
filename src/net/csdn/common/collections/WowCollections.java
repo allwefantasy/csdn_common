@@ -65,8 +65,10 @@ public class WowCollections {
         for (int i = 0; i < keys.length; i++) {
             String oldKey = keys[i];
             String newKey = keys[++i];
-            temp.put(newKey, map.get(oldKey));
-            temp.remove(oldKey);
+            if (map.containsKey(oldKey)) {
+                temp.put(newKey, map.get(oldKey));
+                temp.remove(oldKey);
+            }
         }
         return temp;
     }
@@ -76,7 +78,10 @@ public class WowCollections {
         for (int i = 0; i < keys.length; i++) {
             String oldKey = keys[i];
             String newKey = keys[++i];
-            temp.put(newKey, map.get(oldKey));
+            if (map.containsKey(oldKey)) {
+                temp.put(newKey, map.get(oldKey));
+            }
+
         }
         return temp;
     }
@@ -119,7 +124,7 @@ public class WowCollections {
 
 
     public static String join(Collection collection, String split) {
-        if (collection.size() == 0) return null;
+        if (collection.size() == 0) return "";
         if (split.isEmpty()) {
             return join(collection);
         }
@@ -129,7 +134,7 @@ public class WowCollections {
             stringBuffer.append(ite.next() + split);
         }
 
-        return stringBuffer.substring(0,stringBuffer.length() - split.length());
+        return stringBuffer.substring(0, stringBuffer.length() - split.length());
     }
 
     public static String join(Collection collection) {
@@ -152,10 +157,10 @@ public class WowCollections {
     }
 
 
-    public static List projectByMethod(List list, String method,Object... params) {
+    public static List projectByMethod(List list, String method, Object... params) {
         List list1 = new ArrayList(list.size());
         for (Object obj : list) {
-            list1.add(ReflectHelper.method(obj, method,params));
+            list1.add(ReflectHelper.method(obj, method, params));
         }
         return list1;
     }
@@ -279,8 +284,8 @@ public class WowCollections {
         public Object iterate(K key, V value);
     }
 
-    public static void main(String[] args){
-        System.out.println(join(list("java")," AND"));
+    public static void main(String[] args) {
+        System.out.println(join(list("java"), " AND"));
     }
 
 }
