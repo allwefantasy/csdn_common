@@ -43,6 +43,8 @@ public class Environment {
 
     private final File fingerprintFile;
 
+    private final File templateDirFile;
+
 
     public Environment() {
         this(EMPTY_SETTINGS);
@@ -79,6 +81,13 @@ public class Environment {
         } else {
             dataFile = new File(homeFile, "data");
         }
+
+        if (settings.get("path.template") != null) {
+            templateDirFile = new File(cleanPath(settings.get("path.template")));
+        } else {
+            templateDirFile = new File(homeFile, "template");
+        }
+
         dataWithClusterFile = new File(dataFile, settings.get("cluster.name", "csdnsearch"));
 
         if (settings.get("path.logs") != null) {
@@ -167,6 +176,10 @@ public class Environment {
 
     public File fingerprintFile() {
         return fingerprintFile;
+    }
+
+    public File templateDirFile() {
+        return templateDirFile;
     }
 
     public String resolveConfigAndLoadToString(String path) throws FailedToResolveConfigException, IOException {

@@ -1,5 +1,6 @@
 package net.csdn.common.collections;
 
+import com.google.common.base.Splitter;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import net.csdn.common.exception.ArgumentErrorException;
@@ -104,14 +105,6 @@ public class WowCollections {
         }
         return list;
     }
-
-//    public static <T> List<T> collectObjectProperties(String methodName, T... arrays) {
-//        List<T> list = new ArrayList<T>(arrays.length);
-//        for (T t : arrays) {
-//            list.add(t);
-//        }
-//        return list;
-//    }
 
 
     public static <T> List<T> projectionColumn(List<Map> maps, String column) {
@@ -270,18 +263,51 @@ public class WowCollections {
         return stringBuffer.toString();
     }
 
+    public static Iterable<String> split(String s, String seperator) {
+        return Splitter.on(seperator).split(s);
+    }
 
-    public static <K, V> List iterate_map(Map<K, V> map, MapIterator mapIterator) {
+    public static Iterable<String> splitWithRegex(String s, String seperatorPattern) {
+        return Splitter.onPattern(seperatorPattern).split(s);
+    }
+
+
+    public static <K, V> List iterateMap(Map<K, V> map, MapIterator mapIterator) {
         List list = list();
         for (Map.Entry<K, V> entry : map.entrySet()) {
-            list.add(mapIterator.iterate(entry.getKey(), entry.getValue()));
+            Object t = mapIterator.iterate(entry.getKey(), entry.getValue());
+            if (t != null)
+                list.add(t);
         }
         return list;
+    }
+
+    public static <K, V> List iterate_map(Map<K, V> map, MapIterator mapIterator) {
+        return iterateMap(map, mapIterator);
+    }
+
+    public static <K> List iterateList(List<K> list, ListIterator<K> listIterator) {
+        List result = list();
+        for (K obj : list) {
+            Object t = listIterator.iterate(obj);
+            if (t != null) {
+                result.add(t);
+            }
+        }
+        return result;
+    }
+
+    public static <K> List iterate_list(List<K> list, ListIterator<K> listIterator) {
+        return iterateList(list, listIterator);
     }
 
 
     public interface MapIterator<K, V> {
         public Object iterate(K key, V value);
+    }
+
+    public interface ListIterator<K> {
+        public Object iterate(K key);
     }
 
     public static void main(String[] args) {
