@@ -216,6 +216,14 @@ public class WowCollections {
         return ((Long) map.get(key)).longValue();
     }
 
+    public static Map getMap(Map map, String key) {
+        return (Map) map.get(key);
+    }
+
+    public static Boolean getBoolean(Map map, String key) {
+        return (Boolean) map.get(key);
+    }
+
     public static Set hashSet(Object[] array) {
         Set sets = new HashSet();
         for (Object obj : array) {

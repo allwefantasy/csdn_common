@@ -3,6 +3,7 @@ package net.csdn.common.logging.log4j;
 import net.csdn.common.logging.CSLogger;
 import net.csdn.common.logging.CSLoggerFactory;
 import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 import org.apache.log4j.net.SyslogAppender;
 
@@ -14,7 +15,7 @@ import org.apache.log4j.net.SyslogAppender;
 public class Log4jFactory extends CSLoggerFactory {
     @Override
     protected CSLogger newInstance(String prefix, String name) {
-        final org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(name);
+        final Logger logger = Logger.getLogger(name);
         return new Log4jCSLogger(prefix, logger);
     }
 

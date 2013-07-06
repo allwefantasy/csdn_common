@@ -1,5 +1,6 @@
 package net.csdn.common.reflect;
 
+import com.google.common.collect.Lists;
 import net.csdn.common.exception.ExceptionHandler;
 import org.apache.commons.beanutils.MethodUtils;
 
@@ -7,7 +8,9 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static net.csdn.common.collections.WowCollections.list;
 
@@ -126,6 +129,46 @@ public class ReflectHelper {
         Field field = findField(clzz, fieldName);
         field.setAccessible(true);
         return field.get(obj);
+    }
+
+    public static Method findTTMethod(Class clazz, String methodName, Class... paramTypes) {
+        Class superclass = clazz;
+        try {
+            return superclass.getDeclaredMethod(methodName, paramTypes);
+        } catch (Exception e2) {
+            do {
+                superclass = superclass.getSuperclass();
+                try {
+                    return superclass.getDeclaredMethod(methodName, paramTypes);
+                } catch (NoSuchMethodException e) {
+                    continue;
+                }
+            }
+            while (superclass != null && !Object.class.getName().equals(superclass.getName()));
+        }
+
+        return null;
+    }
+
+    public static List<Method> findTTMethods(Class clazz, String methodName) {
+        Set<Method> methodSet = new HashSet();
+        Class superclass = clazz;
+        for (Method method : clazz.getDeclaredMethods()) {
+            if (method.getName().equals(methodName)) {
+                methodSet.add(method);
+            }
+        }
+
+        do {
+            superclass = superclass.getSuperclass();
+            for (Method method : superclass.getDeclaredMethods()) {
+                if (method.getName().equals(methodName)) {
+                    methodSet.add(method);
+                }
+            }
+        }
+        while (superclass != null && !Object.class.getName().equals(superclass.getName()));
+        return Lists.newArrayList(methodSet);
     }
 
     public static void method2(Object obj, String methodName) {
