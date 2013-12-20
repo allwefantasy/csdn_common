@@ -18,8 +18,8 @@ public class MessageFormat {
         return sFormat(null, messagePattern, argArray);
     }
 
-    public static void main(String[] args){
-        System.out.println(format("http://tag.api.csdn.net/docTag/{}/insert2","news"));
+    public static void main(String[] args) {
+        System.out.println(format("http://tag.api.csdn.net/docTag/{}/insert2", "news"));
     }
 
     public static String copyMessagesFromException(Exception e) {

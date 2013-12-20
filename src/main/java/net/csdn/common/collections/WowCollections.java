@@ -1,6 +1,7 @@
 package net.csdn.common.collections;
 
 import com.google.common.base.Splitter;
+import com.google.common.collect.Lists;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import net.csdn.common.exception.ArgumentErrorException;
@@ -140,6 +141,9 @@ public class WowCollections {
         return stringBuffer.toString();
     }
 
+    public static List<List> splitList(List list, int size) {
+        return Lists.partition(list, size);
+    }
 
     public static List project(List<Map> list, String key) {
         List list1 = new ArrayList(list.size());
@@ -158,7 +162,7 @@ public class WowCollections {
         return list1;
     }
 
-    public static Map double_list_to_map(List keys, List values) {
+    public static Map doubleListToMap(List keys, List values) {
         Map map = new HashMap();
         int keys_size = keys.size();
         int values_size = values.size();
@@ -275,7 +279,63 @@ public class WowCollections {
         return Splitter.on(seperator).split(s);
     }
 
+    public static List<String> split2(String s, String seperator) {
+        if (isEmpty(s)) return Lists.newArrayList();
+        return Lists.newArrayList(Splitter.on(seperator).split(s));
+    }
+
+    public static List<String> split2SkipEmpty(String s, String seperator) {
+        if (isEmpty(s)) return Lists.newArrayList();
+        List<String> list = Lists.newArrayList();
+        for (String temp : Splitter.on(seperator).split(s)) {
+            if (!isEmpty(temp)) {
+                list.add(temp);
+            }
+        }
+        return list;
+    }
+
+    public static List<Integer> split2IntoInt(String s, String seperator) {
+        if (isEmpty(s)) return Lists.newArrayList();
+        List<Integer> ids = Lists.newArrayList();
+        for (String temp : Splitter.on(seperator).split(s)) {
+            try {
+                ids.add(Integer.parseInt(temp));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return ids;
+    }
+
+    public static List<Integer> split2IntoDouble(String s, String seperator) {
+        if (isEmpty(s)) return Lists.newArrayList();
+        List ids = Lists.newArrayList();
+        for (String temp : Splitter.on(seperator).split(s)) {
+            try {
+                ids.add(Double.parseDouble(temp));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return ids;
+    }
+
+    public static List<Integer> split2IntoLong(String s, String seperator) {
+        if (isEmpty(s)) return Lists.newArrayList();
+        List ids = Lists.newArrayList();
+        for (String temp : Splitter.on(seperator).split(s)) {
+            try {
+                ids.add(Long.parseLong(temp));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return ids;
+    }
+
     public static Iterable<String> splitWithRegex(String s, String seperatorPattern) {
+        if (isEmpty(s)) return Lists.newArrayList();
         return Splitter.onPattern(seperatorPattern).split(s);
     }
 
@@ -292,6 +352,21 @@ public class WowCollections {
 
     public static <K, V> List iterate_map(Map<K, V> map, MapIterator mapIterator) {
         return iterateMap(map, mapIterator);
+    }
+
+
+    public static List subList(List temp, int size) {
+        return temp.subList(0, size > temp.size() ? temp.size() : size);
+    }
+
+    public static List subList(List temp, int start, int size) {
+        if (start > (temp.size() - 1)) return Lists.newArrayList();
+        int tempSize = start + size;
+        return temp.subList(start, tempSize > temp.size() ? temp.size() : tempSize);
+    }
+
+    public static void uniqList(List list) {
+
     }
 
     public static <K> List iterateList(List<K> list, ListIterator<K> listIterator) {
@@ -316,10 +391,6 @@ public class WowCollections {
 
     public interface ListIterator<K> {
         public Object iterate(K key);
-    }
-
-    public static void main(String[] args) {
-        System.out.println(join(list("java"), " AND"));
     }
 
 }

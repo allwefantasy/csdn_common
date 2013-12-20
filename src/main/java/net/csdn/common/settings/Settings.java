@@ -148,7 +148,8 @@ public interface Settings {
      * @param defaultClazz The class to return if no value is associated with the setting
      * @param <T>          The type of the class
      * @return The class setting value, or the default class provided is no value exists
-     * @throws net.csdn.common.settings.NoClassSettingsException Failure to load a class
+     * @throws net.csdn.common.settings.NoClassSettingsException
+     *          Failure to load a class
      */
     <T> Class<? extends T> getAsClass(String setting, Class<? extends T> defaultClazz) throws NoClassSettingsException;
 
@@ -163,7 +164,8 @@ public interface Settings {
      * @param suffixClassName The suffix class name to prefix the value with if failing to load the class as is
      * @param <T>             The type of the class
      * @return The class represented by the setting value, or the default class provided if no value exists
-     * @throws net.csdn.common.settings.NoClassSettingsException Failure to load the class
+     * @throws net.csdn.common.settings.NoClassSettingsException
+     *          Failure to load the class
      */
     <T> Class<? extends T> getAsClass(String setting, Class<? extends T> defaultClazz, String prefixPackage, String suffixClassName) throws NoClassSettingsException;
 
