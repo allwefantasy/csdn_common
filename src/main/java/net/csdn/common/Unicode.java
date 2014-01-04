@@ -1,7 +1,5 @@
 package net.csdn.common;
 
-import net.csdn.common.thread.ThreadLocals;
-
 import java.util.Arrays;
 
 /**
@@ -11,19 +9,6 @@ import java.util.Arrays;
  */
 public class Unicode {
 
-    private static ThreadLocal<ThreadLocals.CleanableValue<UnicodeUtil.UTF8Result>> cachedUtf8Result = new ThreadLocal<ThreadLocals.CleanableValue<UnicodeUtil.UTF8Result>>() {
-        @Override
-        protected ThreadLocals.CleanableValue<UnicodeUtil.UTF8Result> initialValue() {
-            return new ThreadLocals.CleanableValue<UnicodeUtil.UTF8Result>(new UnicodeUtil.UTF8Result());
-        }
-    };
-
-    private static ThreadLocal<ThreadLocals.CleanableValue<UTF16Result>> cachedUtf16Result = new ThreadLocal<ThreadLocals.CleanableValue<UTF16Result>>() {
-        @Override
-        protected ThreadLocals.CleanableValue<UTF16Result> initialValue() {
-            return new ThreadLocals.CleanableValue<UTF16Result>(new UTF16Result());
-        }
-    };
 
     public static byte[] fromStringAsBytes(String source) {
         if (source == null) {
@@ -46,8 +31,8 @@ public class Unicode {
         if (source == null) {
             return null;
         }
-        UnicodeUtil.UTF8Result result = cachedUtf8Result.get().get();
-        UnicodeUtil.UTF16toUTF8(source, 0, source.length(), result);
+        UnicodeUtil.UTF8Result result = new UnicodeUtil.UTF8Result();
+        UnicodeUtil.UTF16toUTF8(source, 0, source.length(), new UnicodeUtil.UTF8Result());
         return result;
     }
 
@@ -84,7 +69,7 @@ public class Unicode {
         if (source == null) {
             return null;
         }
-        UTF16Result result = cachedUtf16Result.get().get();
+        UTF16Result result = new UTF16Result();
         UTF8toUTF16(source, offset, length, result);
         return result;
     }
