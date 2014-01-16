@@ -14,6 +14,10 @@ public class ExceptionHandler {
             temp = (InvocationTargetException) e;
             for (int i = 0; i < 10; i++) {
                 InvocationTargetException wow = (InvocationTargetException) temp;
+                if (!(wow.getTargetException() instanceof Exception)) {
+                    wow.getTargetException().printStackTrace();
+                    throw wow;
+                }
                 temp = (Exception) wow.getTargetException();
                 if (temp instanceof RenderFinish) {
                     return;
