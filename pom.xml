@@ -4,7 +4,7 @@
 
     <groupId>net.csdn</groupId>
     <artifactId>csdn-common</artifactId>
-    <version>1.0</version>
+    <version>1.0-SNAPSHOT</version>
 
     <licenses>
         <license>
@@ -17,20 +17,20 @@
     <developers>
         <developer>
             <id>allwefantasy</id>
-            <name>allwefantasy</name>
+            <name>WilliamZhu</name>
             <email>allwefantasy@gmail.com</email>
         </developer>
     </developers>
 
     <scm>
         <connection>scm:git:git@github.com:allwefantasy/csdn_common.git</connection>
-        <url>scm:git:git@github.com:allwefantasy/csdn_common.git</url>
         <developerConnection>scm:git:git@github.com:allwefantasy/csdn_common.git</developerConnection>
-    </scm>
+        <url>https://github.com/allwefantasy/csdn_common</url>
+  </scm>
 
     <issueManagement>
         <system>github</system>
-        <url>https://github.com/allwefantasy/ServiceFramework/issues</url>
+        <url>https://github.com/allwefantasy/csdn_common/issues</url>
     </issueManagement>
 
 
