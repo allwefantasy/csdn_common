@@ -2,8 +2,6 @@ package net.csdn.common.collections;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
 import net.csdn.common.exception.ArgumentErrorException;
 import net.csdn.common.reflect.ReflectHelper;
 
@@ -29,11 +27,11 @@ public class WowCollections {
     }
 
 
-    public static DBObject translateMapToDBObject(Map map) {
-        DBObject query = new BasicDBObject();
-        query.putAll(map);
-        return query;
-    }
+//    public static DBObject translateMapToDBObject(Map map) {
+//        DBObject query = new BasicDBObject();
+//        query.putAll(map);
+//        return query;
+//    }
 
     public static boolean isEmpty(Collection collection) {
         if (collection == null || collection.isEmpty()) {

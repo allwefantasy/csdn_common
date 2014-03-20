@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>net.csdn</groupId>
     <artifactId>csdn-common</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
     <licenses>
         <license>
@@ -25,15 +23,15 @@
     </developers>
 
     <scm>
-        <connection>https://github.com/allwefantasy/ServiceFramework</connection>
-        <url>https://github.com/allwefantasy/ServiceFramework</url>
-    </scm>
+        <connection>scm:git:git@github.com/allwefantasy/csdn_common.git</connection>
+        <url>scm:git:git@github.com/allwefantasy/csdn_common.git</url>
+      <tag>csdn-common-1.0</tag>
+  </scm>
 
     <issueManagement>
         <system>github</system>
         <url>https://github.com/allwefantasy/ServiceFramework/issues</url>
     </issueManagement>
-
 
 
     <!--   项目依赖   -->
@@ -64,14 +62,6 @@
             <groupId>jline</groupId>
             <artifactId>jline</artifactId>
             <version>0.9.94</version>
-        </dependency>
-
-        <!--该包只能在公司里才有-->
-        <dependency>
-            <groupId>com.mongodb</groupId>
-            <artifactId>mongo-java-driver</artifactId>
-            <version>2.8.0-RC1</version>
-            <classifier>RC1</classifier>
         </dependency>
 
         <dependency>
@@ -141,38 +131,69 @@
         </dependency>
 
     </dependencies>
-
-    <!--<build>-->
-    <!--<plugins>-->
-    <!--&lt;!&ndash;   要将源码放上去，需要加入这个插件    &ndash;&gt;-->
-    <!--<plugin>-->
-    <!--<artifactId>maven-source-plugin</artifactId>-->
-    <!--<version>2.1</version>-->
-    <!--<configuration>-->
-    <!--<attach>true</attach>-->
-    <!--</configuration>-->
-    <!--<executions>-->
-    <!--<execution>-->
-    <!--<phase>compile</phase>-->
-    <!--<goals>-->
-    <!--<goal>jar</goal>-->
-    <!--</goals>-->
-    <!--</execution>-->
-    <!--</executions>-->
-    <!--</plugin>-->
-
-    <!--<plugin>-->
-    <!--<groupId>org.apache.maven.plugins</groupId>-->
-    <!--<artifactId>maven-compiler-plugin</artifactId>-->
-    <!--<version>3.1</version>-->
-    <!--<configuration>-->
-    <!--<compilerArgument> -g </compilerArgument>-->
-    <!--<source>1.6</source>-->
-    <!--<target>1.6</target>-->
-    <!--</configuration>-->
-    <!--</plugin>-->
-
-    <!--</plugins>-->
-    <!--</build>-->
+    <profiles>
+        <profile>
+            <id>release-sign-artifacts</id>
+            <activation>
+                <property>
+                    <name>performRelease</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.1</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <distributionManagement>
+        <repository>
+            <id>nexus-releases</id>
+            <name>Nexus Repository</name>
+            <url>http://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
 
 </project>

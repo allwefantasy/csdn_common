@@ -2,3 +2,5 @@
 .idea
 target/
 csdn-common.iml
+pom.xml.releaseBackup
+release.properties
