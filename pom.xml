@@ -26,7 +26,7 @@
         <connection>scm:git:git@github.com:allwefantasy/csdn_common.git</connection>
         <developerConnection>scm:git:git@github.com:allwefantasy/csdn_common.git</developerConnection>
         <url>https://github.com/allwefantasy/csdn_common</url>
-  </scm>
+    </scm>
 
     <issueManagement>
         <system>github</system>
@@ -192,7 +192,7 @@
         <repository>
             <id>nexus-releases</id>
             <name>Nexus Repository</name>
-            <url>http://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <url>http://oss.sonatype.org/service/local/staging/deploy/maven2</url>
         </repository>
     </distributionManagement>
 
