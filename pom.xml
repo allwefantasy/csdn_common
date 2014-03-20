@@ -23,8 +23,8 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git@github.com/allwefantasy/csdn_common.git</connection>
-        <url>scm:git:git@github.com/allwefantasy/csdn_common.git</url>
+        <connection>scm:git:git@github.com:allwefantasy/csdn_common.git</connection>
+        <url>scm:git:git@github.com:allwefantasy/csdn_common.git</url>
       <tag>csdn-common-1.0</tag>
   </scm>
 
