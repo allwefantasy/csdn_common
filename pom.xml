@@ -8,7 +8,7 @@
     </parent>
     <groupId>net.csdn</groupId>
     <artifactId>csdn-common</artifactId>
-    <version>1.4-SNAPSHOT</version>
+    <version>1.4</version>
 
     <licenses>
         <license>
