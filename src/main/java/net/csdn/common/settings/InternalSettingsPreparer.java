@@ -15,7 +15,7 @@ import static net.csdn.common.settings.ImmutableSettings.settingsBuilder;
  */
 public class InternalSettingsPreparer {
 
-    public static Tuple<Settings, Environment> prepareSettings(Settings pSettings) {
+    public static Tuple<Settings, Environment> prepareSettings(Settings pSettings, String applicationYmlName) {
         ImmutableSettings.Builder settingsBuilder = settingsBuilder().put(pSettings);
 
         if (settingsBuilder.get("cluster.name") == null) {
@@ -23,7 +23,11 @@ public class InternalSettingsPreparer {
         }
 
         Environment environment = new Environment(settingsBuilder.build());
-        settingsBuilder.loadFromUrl(environment.resolveConfig("application.yml"));
+        String appName = "application.yml";
+        if (applicationYmlName != null && !applicationYmlName.isEmpty()) {
+            appName = applicationYmlName;
+        }
+        settingsBuilder.loadFromUrl(environment.resolveConfig(appName));
 
         Settings v1 = settingsBuilder.build();
 

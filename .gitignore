@@ -4,3 +4,6 @@ target/
 csdn-common.iml
 pom.xml.releaseBackup
 release.properties
+/pom.xml.bak
+/csdn-common.ipr
+/csdn-common.iws
