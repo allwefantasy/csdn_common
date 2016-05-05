@@ -158,6 +158,15 @@
                 </plugins>
             </build>
         </profile>
+		<profile>
+            <id>disable-java8-doclint</id>
+            <activation>
+                <jdk>[1.8,)</jdk>
+            </activation>
+            <properties>
+                <additionalparam>-Xdoclint:none</additionalparam>
+            </properties>
+        </profile>
     </profiles>
     <build>
         <plugins>
@@ -185,6 +194,18 @@
                     </execution>
                 </executions>
             </plugin>
+			<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                    <compilerArgument>-g</compilerArgument>
+                    <verbose>true</verbose>
+					<encoding>UTF-8</encoding>
+                </configuration>
+			</plugin>
         </plugins>
     </build>
     
